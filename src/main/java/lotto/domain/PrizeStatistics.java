@@ -10,14 +10,13 @@ public class PrizeStatistics {
     }
 
     /**
-     * 소수점 둘째 자리에서 반올림한 수익률을 계산하는 메서드
+     * 수익률을 계산하는 메서드
      * @param purchaseAmount 구입 금액
-     * @return 소수점 둘쨰 자리에서 반올림한 수익률
+     * @return 수익률
      */
     public double calculateBenefitRate(PurchaseAmount purchaseAmount){
         long totalBenefit = calculateTotalAmount();
-        double result = (totalBenefit / (double)purchaseAmount.getValue()) * 100;
-        return Math.round(result * 10);
+        return (totalBenefit / (double)purchaseAmount.getValue()) * 100;
     }
 
     public long calculateTotalAmount(){
