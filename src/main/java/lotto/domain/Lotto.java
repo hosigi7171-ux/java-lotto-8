@@ -24,7 +24,7 @@ public class Lotto {
 
     private void validateNotDuplicate(List<Integer> numbers) {
         Set<Integer> distinctNumbers = new HashSet<>(numbers);
-        if(distinctNumbers.size() != numbers.size()){
+        if (distinctNumbers.size() != numbers.size()) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 중복되면 안됩니다.");
         }
     }
@@ -42,16 +42,18 @@ public class Lotto {
     }
 
     private void validateNumberInRange(int number) {
-        throw new IllegalArgumentException(
-                String.format("[ERROR] 로또 숫자는 %d~%d까지 입니다.", LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX));
+        if (number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX) {
+            throw new IllegalArgumentException(
+                    String.format("[ERROR] 로또 숫자는 %d~%d까지 입니다.", LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX));
+        }
     }
 
-    public boolean contains(int number){
+    public boolean contains(int number) {
         Set<Integer> distinctNumbers = new HashSet<>(numbers);
         return distinctNumbers.contains(number);
     }
 
-    public List<Integer> getNumbers(){
+    public List<Integer> getNumbers() {
         return numbers;
     }
 
