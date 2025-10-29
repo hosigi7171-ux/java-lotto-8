@@ -46,6 +46,11 @@ public class Lotto {
                 String.format("[ERROR] 로또 숫자는 %d~%d까지 입니다.", LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX));
     }
 
+    public boolean contains(int number){
+        Set<Integer> distinctNumbers = new HashSet<>(numbers);
+        return distinctNumbers.contains(number);
+    }
+
     public List<Integer> getNumbers(){
         return numbers;
     }
