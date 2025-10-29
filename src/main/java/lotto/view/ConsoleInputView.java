@@ -1,9 +1,10 @@
 package lotto.view;
 
+import static lotto.constants.LottoConstants.PURCHASE_AMOUNT_DIVISOR;
+
 import camp.nextstep.edu.missionutils.Console;
 
 public class ConsoleInputView implements InputView {
-    private static final int DIVISOR = 1000;
 
     public int readPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
@@ -19,8 +20,8 @@ public class ConsoleInputView implements InputView {
 
     private void validateDivisibleByThousand(String input) {
         int number = Integer.parseInt(input);
-        if (number % DIVISOR != 0) {
-            throw new IllegalArgumentException(String.format("구입 금액은 %d로 나눠져야 합니다.", DIVISOR));
+        if (number % PURCHASE_AMOUNT_DIVISOR != 0) {
+            throw new IllegalArgumentException(String.format("구입 금액은 %d로 나눠져야 합니다.", PURCHASE_AMOUNT_DIVISOR));
         }
     }
 
