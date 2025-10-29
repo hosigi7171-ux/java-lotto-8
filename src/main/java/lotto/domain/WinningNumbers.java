@@ -1,13 +1,10 @@
 package lotto.domain;
 
-import static lotto.constants.LottoConstants.LOTTO_NUMBER_MAX;
-import static lotto.constants.LottoConstants.LOTTO_NUMBER_MIN;
-
 public class WinningNumbers {
-    private Lotto winningLotto;
-    private int bonusNumber;
+    private final Lotto winningLotto;
+    private final BonusNumber bonusNumber;
 
-    public WinningNumbers(Lotto winningLotto, int bonusNumber) {
+    public WinningNumbers(Lotto winningLotto, BonusNumber bonusNumber) {
         // 로또는 자체적으로 검증 완료
         this.winningLotto = winningLotto;
 
@@ -16,19 +13,13 @@ public class WinningNumbers {
         this.bonusNumber = bonusNumber;
     }
 
-    private void validate(int bonusNumber){
-        validateNumberInRange(bonusNumber);
+    private void validate(BonusNumber bonusNumber){
         validateNotDuplicate(bonusNumber);
     }
 
-    private void validateNotDuplicate(int bonusNumber) {
-        if(winningLotto.contains(bonusNumber)){
+    private void validateNotDuplicate(BonusNumber bonusNumber) {
+        if(winningLotto.contains(bonusNumber.getValue())){
             throw new IllegalArgumentException("[ERROR] 로또 번호는 중복되면 안됩니다.");
         }
-    }
-
-    private void validateNumberInRange(int number) {
-        throw new IllegalArgumentException(
-                String.format("[ERROR] 로또 숫자는 %d~%d까지 입니다.", LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX));
     }
 }
