@@ -19,7 +19,7 @@ public class PrizeStatistics {
         return (totalBenefit / (double)purchaseAmount.getValue()) * 100;
     }
 
-    public long calculateTotalAmount(){
+    private long calculateTotalAmount(){
         long sum = 0;
         for(Prize prize : Prize.values()){
             sum += calculatePrizeAmount(prize);
@@ -31,5 +31,9 @@ public class PrizeStatistics {
         Integer count = prizeCounter.get(prize);
         if(count == null) return 0;
         return count * prize.getPrizeMoney();
+    }
+
+    public Map<Prize, Integer> getPrizeCounter(){
+        return prizeCounter;
     }
 }
