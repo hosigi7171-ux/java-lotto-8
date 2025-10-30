@@ -3,6 +3,7 @@ package lotto.domain;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lotto.constants.ErrorMessage;
 
 public class WinningNumbers {
     private final Lotto winningLotto;
@@ -23,7 +24,7 @@ public class WinningNumbers {
 
     private void validateNotDuplicate(BonusNumber bonusNumber) {
         if (winningLotto.contains(bonusNumber.getValue())) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 중복되면 안됩니다.");
+            throw new IllegalArgumentException(ErrorMessage.WINNING_NUMBER_DUPLICATE.getMessage());
         }
     }
 

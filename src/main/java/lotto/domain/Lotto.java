@@ -7,6 +7,7 @@ import static lotto.constants.LottoConstants.LOTTO_NUMBER_MIN;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lotto.constants.ErrorMessage;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -25,13 +26,14 @@ public class Lotto {
     private void validateNotDuplicate(List<Integer> numbers) {
         Set<Integer> distinctNumbers = new HashSet<>(numbers);
         if (distinctNumbers.size() != numbers.size()) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 중복되면 안됩니다.");
+            throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_DUPLICATE.getMessage());
         }
     }
 
     private void validateNumbersCount(List<Integer> numbers) {
         if (numbers.size() != LOTTO_NUMBER_COUNT) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
+            throw new IllegalArgumentException(
+                    String.format(ErrorMessage.LOTTO_NUMBER_COUNT_MISMATCH.getMessage(), LOTTO_NUMBER_COUNT));
         }
     }
 
@@ -44,7 +46,8 @@ public class Lotto {
     private void validateNumberInRange(int number) {
         if (number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX) {
             throw new IllegalArgumentException(
-                    String.format("[ERROR] 로또 숫자는 %d~%d까지 입니다.", LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX));
+                    String.format(ErrorMessage.LOTTO_NUMBER_NOT_IN_RANGE.getMessage(), LOTTO_NUMBER_MIN,
+                            LOTTO_NUMBER_MAX));
         }
     }
 
