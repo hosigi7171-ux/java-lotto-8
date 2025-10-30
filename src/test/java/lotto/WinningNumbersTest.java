@@ -29,12 +29,12 @@ public class WinningNumbersTest {
         Lotto winningLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
         BonusNumber bonusNumber = new BonusNumber("7");
         WinningNumbers winningNumbers = new WinningNumbers(winningLotto, bonusNumber);
-        List<Lotto> lottoList = new ArrayList<>();
-        lottoList.add(new Lotto(Arrays.asList(1,2,3,4,5,6))); // FIRST
-        lottoList.add(new Lotto(Arrays.asList(1,2,3,4,6,7))); // SECOND
-        lottoList.add(new Lotto(Arrays.asList(1,3,5,8,11,14))); // FIFTH
+        List<Lotto> lottos = new ArrayList<>();
+        lottos.add(new Lotto(Arrays.asList(1,2,3,4,5,6))); // FIRST
+        lottos.add(new Lotto(Arrays.asList(1,2,3,4,6,7))); // SECOND
+        lottos.add(new Lotto(Arrays.asList(1,3,5,8,11,14))); // FIFTH
 
-        Map<Prize, Integer> result = winningNumbers.match(lottoList);
+        Map<Prize, Integer> result = winningNumbers.match(lottos);
 
         assertThat(result.get(Prize.FIFTH)).isEqualTo(1);
         assertThat(result.get(Prize.FOURTH)).isEqualTo(0);
