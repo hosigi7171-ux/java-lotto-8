@@ -1,5 +1,7 @@
 package lotto.controller;
 
+import java.util.List;
+import lotto.domain.Lotto;
 import lotto.domain.PrizeStatistics;
 import lotto.domain.PurchaseAmount;
 import lotto.domain.WinningNumbers;
@@ -23,12 +25,12 @@ public class LottoController {
         PurchaseAmount purchaseAmount = inputView.readPurchaseAmount();
 
         // 로또들 만들고 출력하기
-        lottoService.makeLottos(purchaseAmount);
-        outputView.printLottos(lottoService.getLottos());
+        List<Lotto> lottos = lottoService.makeLottos(purchaseAmount);
+        outputView.printLottos(lottos);
 
         // 당첨 번호 입력받고 통계 결과 만들기
         WinningNumbers winningNumbers = inputView.readWinningNumbers();
-        PrizeStatistics statistics = lottoService.matchAndCalculateStatistics(winningNumbers, purchaseAmount);
+        PrizeStatistics statistics = lottoService.matchAndCalculateStatistics(winningNumbers, lottos, purchaseAmount);
 
         // 최종 결과 출력
         outputView.printStatistics(statistics.getPrizeCounter());

@@ -15,29 +15,25 @@ import lotto.domain.PurchaseAmount;
 import lotto.domain.WinningNumbers;
 
 public class LottoServiceImpl implements LottoService {
-    private final List<Lotto> lottos;
 
-    public LottoServiceImpl() {
-        lottos = new ArrayList<>();
-    }
+    public List<Lotto> makeLottos(PurchaseAmount purchaseAmount) {
+        List<Lotto> lottos = new ArrayList<>();
 
-    public void makeLottos(PurchaseAmount purchaseAmount) {
         int lottoCount = purchaseAmount.calculatePurchasableLottoCount();
         for (int index = 0; index < lottoCount; index++) {
             lottos.add(makeLotto());
         }
+
+        return lottos;
     }
 
     private Lotto makeLotto() {
         return new Lotto(Randoms.pickUniqueNumbersInRange(LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX, LOTTO_NUMBER_COUNT));
     }
 
-    public PrizeStatistics matchAndCalculateStatistics(WinningNumbers winningNumbers, PurchaseAmount purchaseAmount) {
+    public PrizeStatistics matchAndCalculateStatistics(WinningNumbers winningNumbers, List<Lotto> lottos,
+                                                       PurchaseAmount purchaseAmount) {
         Map<Prize, Integer> prizeCounter = winningNumbers.match(lottos);
         return new PrizeStatistics(prizeCounter);
-    }
-
-    public List<Lotto> getLottos() {
-        return lottos;
     }
 }
