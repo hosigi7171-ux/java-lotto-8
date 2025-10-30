@@ -30,17 +30,26 @@ public enum Prize {
     }
 
     /**
-     * 일치하는 숫자 개수에 해당하는 enum 을 리턴해주는 메서드
+     * 일치 개수와 보너스 번호 여부에 따라 당첨 등수를 반환
      *
-     * @param matchedNumberCount 당첨로또와 일치하는 숫자 개수
-     * @return 몇 등상인지 없으면 null
+     * @param matchedNumberCount 일치한 로또 번호 개수
+     * @param matchedBonusNumber 보너스 번호 일치 여부
+     * @return 해당하는 Prize, 없으면 null
      */
-    public static Prize getMatchedPrize(int matchedNumberCount) {
-        for (Prize prize : Prize.values()) {
-            if (prize.getMatchedNumberCount() == matchedNumberCount) {
+    public static Prize getMatchedPrize(int matchedNumberCount, boolean matchedBonusNumber) {
+        for (Prize prize : values()) {
+            if (prize.matchedNumberCount == matchedNumberCount
+                    && prize.isMatchedBonusNumber == matchedBonusNumber) {
                 return prize;
             }
         }
+        // 2등(보너스)이 아닌 나머지 등수들 처리
+        for (Prize prize : values()) {
+            if (prize.matchedNumberCount == matchedNumberCount && !prize.isMatchedBonusNumber) {
+                return prize;
+            }
+        }
+
         return null;
     }
 }

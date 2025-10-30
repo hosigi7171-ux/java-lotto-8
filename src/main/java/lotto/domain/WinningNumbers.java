@@ -57,15 +57,11 @@ public class WinningNumbers {
      * @return 해당하는 등수 enum
      */
     private Prize getPrizeForLotto(Lotto lotto) {
-        // 당첨 번호와 일치하는 숫자 개수 얻기
         int matchedCount = countMatchedLottoNumber(lotto);
-        // 2등상인 경우
-        if (matchedCount == Prize.SECOND.getMatchedNumberCount() && isLottoMatchedBonusNumber(lotto)) {
-            return Prize.SECOND;
-        }
-        // 나머지 경우
-        return Prize.getMatchedPrize(matchedCount);
+        boolean matchedBonus = isLottoMatchedBonusNumber(lotto);
+        return Prize.getMatchedPrize(matchedCount, matchedBonus);
     }
+
 
     private void plusCount(Prize prize, Map<Prize, Integer> countResult) {
         countResult.put(prize, countResult.getOrDefault(prize, 0) + 1);
