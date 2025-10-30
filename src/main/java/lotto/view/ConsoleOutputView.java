@@ -14,10 +14,12 @@ public class ConsoleOutputView implements OutputView {
     private static final String PROMPT_BENEFIT_RATE_FORMAT = "총 수익률은 %.1f%%입니다.%n";
 
     public void printLottos(List<Lotto> lottos) {
+        System.out.println();
         System.out.printf(PROMPT_PURCHASED_LOTTO_COUNT_FORMAT, lottos.size());
         for (Lotto lotto : lottos) {
             System.out.println(lotto);
         }
+        System.out.println();
     }
 
     public void printStatistics(Map<Prize, Integer> prizeCounter) {
@@ -35,6 +37,7 @@ public class ConsoleOutputView implements OutputView {
     }
 
     public void printBenefitRate(double benefitRate){
+        System.out.println();
         // 소수점 둘째 자리에서 반올림
         System.out.printf(PROMPT_BENEFIT_RATE_FORMAT, benefitRate);
     }
