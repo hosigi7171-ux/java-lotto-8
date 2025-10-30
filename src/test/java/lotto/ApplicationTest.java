@@ -47,9 +47,109 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 로또숫자와_보너스숫자_전부_같으면_1등() {
+        assertRandomUniqueNumbersInRangeTest(
+                () -> {
+                    run("8000", "1,2,3,4,5,6", "7");
+                    assertThat(output()).contains(
+                            "8개를 구매했습니다.",
+                            "[1, 2, 3, 4, 5, 6]",
+                            "[1, 2, 3, 4, 5, 6]",
+                            "[1, 2, 3, 4, 5, 6]",
+                            "[1, 2, 3, 4, 5, 6]",
+                            "[1, 2, 3, 4, 5, 6]",
+                            "[1, 2, 3, 4, 5, 6]",
+                            "[1, 2, 3, 4, 5, 6]",
+                            "[1, 2, 3, 4, 5, 6]",
+                            "3개 일치 (5,000원) - 0개",
+                            "4개 일치 (50,000원) - 0개",
+                            "5개 일치 (1,500,000원) - 0개",
+                            "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
+                            "6개 일치 (2,000,000,000원) - 8개",
+                            "총 수익률은 200000000.0%입니다."
+                    );
+                },
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(1, 2, 3, 4, 5, 6)
+        );
+    }
+
+    @Test
+    void 전부_당첨_안됨() {
+        assertRandomUniqueNumbersInRangeTest(
+                () -> {
+                    run("8000", "1,2,3,4,5,6", "7");
+                    assertThat(output()).contains(
+                            "8개를 구매했습니다.",
+                            "[8, 9, 10, 11, 12, 13]",
+                            "[8, 9, 10, 11, 12, 13]",
+                            "[8, 9, 10, 11, 12, 13]",
+                            "[8, 9, 10, 11, 12, 13]",
+                            "[8, 9, 10, 11, 12, 13]",
+                            "[8, 9, 10, 11, 12, 13]",
+                            "[8, 9, 10, 11, 12, 13]",
+                            "[8, 9, 10, 11, 12, 13]",
+                            "3개 일치 (5,000원) - 0개",
+                            "4개 일치 (50,000원) - 0개",
+                            "5개 일치 (1,500,000원) - 0개",
+                            "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
+                            "6개 일치 (2,000,000,000원) - 0개",
+                            "총 수익률은 0.0%입니다."
+                    );
+                },
+                List.of(8, 9, 10, 11, 12, 13),
+                List.of(8, 9, 10, 11, 12, 13),
+                List.of(8, 9, 10, 11, 12, 13),
+                List.of(8, 9, 10, 11, 12, 13),
+                List.of(8, 9, 10, 11, 12, 13),
+                List.of(8, 9, 10, 11, 12, 13),
+                List.of(8, 9, 10, 11, 12, 13),
+                List.of(8, 9, 10, 11, 12, 13)
+        );
+    }
+
+    @Test
     void 예외_테스트() {
         assertSimpleTest(() -> {
             runException("1000j");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
+    void 예외_테스트_문자_입력() {
+        assertSimpleTest(() -> {
+            runException("asdfdsaf");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
+    void 예외_테스트_중복_숫자() {
+        assertSimpleTest(() -> {
+            runException("1000", "1,2,3,4,5,6", "3");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
+    void 예외_테스트_로또_문자() {
+        assertSimpleTest(() -> {
+            runException("1000", "1,2,3,4,5,asdf");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
+    void 예외_테스트_보너스숫자_문자() {
+        assertSimpleTest(() -> {
+            runException("1000", "1,2,3,4,5,6", "asdf");
             assertThat(output()).contains(ERROR_MESSAGE);
         });
     }
