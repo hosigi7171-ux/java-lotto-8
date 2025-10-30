@@ -3,6 +3,7 @@ package lotto.view;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.ArrayList;
 import java.util.List;
+import lotto.constants.ErrorMessage;
 import lotto.domain.BonusNumber;
 import lotto.domain.Lotto;
 import lotto.domain.PurchaseAmount;
@@ -27,36 +28,32 @@ public class ConsoleInputView implements InputView {
 
     public WinningNumbers readWinningNumbers() {
         Lotto winningLotto = readValidWinningLotto();
+        System.out.println();
         BonusNumber bonusNumber = readValidBonusNumber();
+        System.out.println();
         return new WinningNumbers(winningLotto, bonusNumber);
     }
 
     private Lotto readValidWinningLotto() {
-        Lotto winningLotto = null;
-        while (winningLotto == null) {
+        while (true) {
             System.out.println(PROMPT_WINNING_NUMBER);
             try {
-                winningLotto = readLotto();
+                return readLotto();
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println();
         }
-        return winningLotto;
     }
 
     private BonusNumber readValidBonusNumber() {
-        BonusNumber bonusNumber = null;
-        while (bonusNumber == null) {
+        while (true) {
             System.out.println(PROMPT_BONUS_NUMBER);
             try {
-                bonusNumber = readBonusNumber();
+                return readBonusNumber();
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println();
         }
-        return bonusNumber;
     }
 
     private Lotto readLotto() {
@@ -64,7 +61,11 @@ public class ConsoleInputView implements InputView {
         List<String> splitInput = List.of(input.split(","));
         List<Integer> numbers = new ArrayList<>();
         for (String wordNumber : splitInput) {
-            numbers.add(Integer.parseInt(wordNumber));
+            try {
+                numbers.add(Integer.parseInt(wordNumber));
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_NOT_POSITIVE_NUMBER.getMessage());
+            }
         }
         return new Lotto(numbers);
     }
