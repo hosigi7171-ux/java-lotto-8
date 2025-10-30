@@ -2,7 +2,6 @@ package lotto.view;
 
 import java.util.List;
 import java.util.Map;
-import lotto.constants.ErrorMessage;
 import lotto.domain.Lotto;
 import lotto.domain.Prize;
 
@@ -13,7 +12,6 @@ public class ConsoleOutputView implements OutputView {
     private static final String PROMPT_MATCHING_FORMAT = "%d개 일치 (%,d원) - %d개%n";
     private static final String PROMPT_MATCHING_BONUS_FORMAT = "%d개 일치, 보너스 볼 일치 (%,d원) - %d개 %n";
     private static final String PROMPT_BENEFIT_RATE_FORMAT = "총 수익률은 %.1f%%입니다.%n";
-
 
     public void printLottos(List<Lotto> lottos) {
         System.out.printf(PROMPT_PURCHASED_LOTTO_COUNT_FORMAT, lottos.size());
@@ -26,9 +24,6 @@ public class ConsoleOutputView implements OutputView {
         System.out.println(PROMPT_STATISTICS_TITLE);
         System.out.println(PROMPT_SEPARATOR);
 
-        if(prizeCounter == null){
-            throw new IllegalStateException(ErrorMessage.PRIZE_COUNTER_NULL.getMessage());
-        }
         for (Prize prize : Prize.values()) {
             int count = prizeCounter.get(prize);
             String message = PROMPT_MATCHING_FORMAT;
