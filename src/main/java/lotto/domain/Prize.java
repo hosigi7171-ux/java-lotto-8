@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import static lotto.constants.LottoConstants.LOTTO_NUMBER_COUNT;
+
 public enum Prize {
     FIFTH(3, false, 5_000),
     FOURTH(4, false, 50_000),
@@ -37,19 +39,17 @@ public enum Prize {
      * @return 해당하는 Prize, 없으면 null
      */
     public static Prize getMatchedPrize(int matchedNumberCount, boolean matchedBonusNumber) {
+        // 일치하는 prize 를 반환
         for (Prize prize : values()) {
             if (prize.matchedNumberCount == matchedNumberCount
                     && prize.isMatchedBonusNumber == matchedBonusNumber) {
                 return prize;
             }
         }
-        // 2등(보너스)이 아닌 나머지 등수들 처리
-        for (Prize prize : values()) {
-            if (prize.matchedNumberCount == matchedNumberCount && !prize.isMatchedBonusNumber) {
-                return prize;
-            }
+        // 숫자 전부 일치 + 보너스 숫자도 일치 -> 형식상 1등으로 취급하는게 맞을듯
+        if(matchedNumberCount == LOTTO_NUMBER_COUNT){
+            return FIRST;
         }
-
         return null;
     }
 }
