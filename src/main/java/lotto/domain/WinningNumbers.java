@@ -36,6 +36,10 @@ public class WinningNumbers {
      */
     public Map<Prize, Integer> match(List<Lotto> lottos) {
         Map<Prize, Integer> countResult = new HashMap<>();
+        // 모든 Prize 에 대해서 0으로 세팅
+        for(Prize prize : Prize.values()){
+            countResult.put(prize, 0);
+        }
         for (Lotto lotto : lottos) {
             Prize prize = getPrizeForLotto(lotto);
             // 등수에 해당하면

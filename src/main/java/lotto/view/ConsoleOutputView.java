@@ -2,6 +2,7 @@ package lotto.view;
 
 import java.util.List;
 import java.util.Map;
+import lotto.constants.ErrorMessage;
 import lotto.domain.Lotto;
 import lotto.domain.Prize;
 
@@ -10,6 +11,7 @@ public class ConsoleOutputView implements OutputView {
     private static final String PROMPT_STATISTICS_TITLE = "당첨 통계";
     private static final String PROMPT_SEPARATOR = "---";
     private static final String PROMPT_MATCHING_FORMAT = "%d개 일치 (%,d원) - %d개%n";
+    private static final String PROMPT_MATCHING_BONUS_FORMAT = "%d개 일치, 보너스 볼 일치 (%,d원) - %d개 %n";
     private static final String PROMPT_BENEFIT_RATE_FORMAT = "총 수익률은 %.1f%%입니다.%n";
 
 
@@ -24,9 +26,16 @@ public class ConsoleOutputView implements OutputView {
         System.out.println(PROMPT_STATISTICS_TITLE);
         System.out.println(PROMPT_SEPARATOR);
 
+        if(prizeCounter == null){
+            throw new IllegalStateException(ErrorMessage.PRIZE_COUNTER_NULL.getMessage());
+        }
         for (Prize prize : Prize.values()) {
             int count = prizeCounter.get(prize);
-            System.out.printf(PROMPT_MATCHING_FORMAT, prize.getMatchedNumberCount(), prize.getPrizeMoney(), count);
+            String message = PROMPT_MATCHING_FORMAT;
+            if(prize.isMatchedBonusNumber()){
+                message = PROMPT_MATCHING_BONUS_FORMAT;
+            }
+            System.out.printf(message, prize.getMatchedNumberCount(), prize.getPrizeMoney(), count);
         }
     }
 

@@ -12,6 +12,8 @@ public enum ErrorMessage {
     BONUS_NUMBER_NOT_IN_RANGE("[ERROR] 보너스 숫자는 %d~%d까지 입니다."),
 
     WINNING_NUMBER_DUPLICATE("[ERROR] 당첨 번호는 중복되면 안됩니다."),
+
+    PRIZE_COUNTER_NULL("[ERROR] 당첨 내역은 NULL 이면 안됩니다.")
     ;
 
     private final String message;
