@@ -29,9 +29,16 @@ public class ConsoleInputView implements InputView {
     public WinningNumbers readWinningNumbers() {
         Lotto winningLotto = readValidWinningLotto();
         System.out.println();
-        BonusNumber bonusNumber = readValidBonusNumber();
-        System.out.println();
-        return new WinningNumbers(winningLotto, bonusNumber);
+        // 보너스 숫자도 잘못 입력하면(ex: 중복되면) 보너스 숫자부터 입력 반복
+        while(true){
+            BonusNumber bonusNumber = readValidBonusNumber();
+            System.out.println();
+            try{
+                return new WinningNumbers(winningLotto, bonusNumber);
+            }catch(IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private Lotto readValidWinningLotto() {
