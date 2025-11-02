@@ -23,14 +23,14 @@ public class Lotto {
         validateNotDuplicate(numbers);
     }
 
-    private void validateNotDuplicate(List<Integer> numbers) {
+    private void validateNotDuplicate(List<Integer> numbers) throws IllegalArgumentException{
         Set<Integer> distinctNumbers = new HashSet<>(numbers);
         if (distinctNumbers.size() != numbers.size()) {
             throw new IllegalArgumentException(ErrorMessage.LOTTO_NUMBER_DUPLICATE.getMessage());
         }
     }
 
-    private void validateNumbersCount(List<Integer> numbers) {
+    private void validateNumbersCount(List<Integer> numbers) throws IllegalArgumentException{
         if (numbers.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException(
                     String.format(ErrorMessage.LOTTO_NUMBER_COUNT_MISMATCH.getMessage(), LOTTO_NUMBER_COUNT));
@@ -43,7 +43,7 @@ public class Lotto {
         }
     }
 
-    private void validateNumberInRange(int number) {
+    private void validateNumberInRange(int number) throws IllegalArgumentException{
         if (number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX) {
             throw new IllegalArgumentException(
                     String.format(ErrorMessage.LOTTO_NUMBER_NOT_IN_RANGE.getMessage(), LOTTO_NUMBER_MIN,

@@ -17,7 +17,7 @@ public class PurchaseAmount {
         validateDivisibleByThousand(input);
     }
 
-    private void validateDivisibleByThousand(String input) {
+    private void validateDivisibleByThousand(String input) throws IllegalArgumentException{
         int number = Integer.parseInt(input);
         if (number % PURCHASE_AMOUNT_DIVISOR != 0) {
             throw new IllegalArgumentException(
@@ -25,7 +25,7 @@ public class PurchaseAmount {
         }
     }
 
-    private void validateNumber(String input) {
+    private void validateNumber(String input) throws IllegalArgumentException{
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {

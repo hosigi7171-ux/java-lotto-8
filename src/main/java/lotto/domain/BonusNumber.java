@@ -18,7 +18,7 @@ public class BonusNumber {
         validateNumberInRange(Integer.parseInt(input));
     }
 
-    private void validateNumber(String input) {
+    private void validateNumber(String input) throws IllegalArgumentException{
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {
@@ -26,7 +26,7 @@ public class BonusNumber {
         }
     }
 
-    private void validateNumberInRange(int number) {
+    private void validateNumberInRange(int number) throws IllegalArgumentException{
         if (number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX) {
             throw new IllegalArgumentException(
                     String.format(ErrorMessage.BONUS_NUMBER_NOT_IN_RANGE.getMessage(), LOTTO_NUMBER_MIN,
