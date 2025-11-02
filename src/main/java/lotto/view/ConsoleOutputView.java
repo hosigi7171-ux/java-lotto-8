@@ -13,6 +13,7 @@ public class ConsoleOutputView implements OutputView {
     private static final String PROMPT_MATCHING_BONUS_FORMAT = "%d개 일치, 보너스 볼 일치 (%,d원) - %d개 %n";
     private static final String PROMPT_BENEFIT_RATE_FORMAT = "총 수익률은 %.1f%%입니다.%n";
 
+    @Override
     public void printLottos(List<Lotto> lottos) {
         System.out.println();
         System.out.printf(PROMPT_PURCHASED_LOTTO_COUNT_FORMAT, lottos.size());
@@ -22,6 +23,7 @@ public class ConsoleOutputView implements OutputView {
         System.out.println();
     }
 
+    @Override
     public void printStatistics(Map<Prize, Integer> prizeCounter) {
         System.out.println(PROMPT_STATISTICS_TITLE);
         System.out.println(PROMPT_SEPARATOR);
@@ -36,6 +38,7 @@ public class ConsoleOutputView implements OutputView {
         }
     }
 
+    @Override
     public void printBenefitRate(double benefitRate){
         System.out.println();
         // 소수점 둘째 자리에서 반올림

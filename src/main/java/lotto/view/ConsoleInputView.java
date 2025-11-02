@@ -14,6 +14,7 @@ public class ConsoleInputView implements InputView {
     private static final String PROMPT_WINNING_NUMBER = "당첨 번호를 입력해 주세요.";
     private static final String PROMPT_BONUS_NUMBER = "보너스 번호를 입력해 주세요.";
 
+    @Override
     public PurchaseAmount readPurchaseAmount() {
         while (true) {
             System.out.println(PROMPT_PURCHASE_AMOUNT);
@@ -26,6 +27,7 @@ public class ConsoleInputView implements InputView {
         }
     }
 
+    @Override
     public WinningNumbers readWinningNumbers() {
         Lotto winningLotto = readValidWinningLotto();
         System.out.println();
@@ -63,7 +65,7 @@ public class ConsoleInputView implements InputView {
         }
     }
 
-    private Lotto readLotto() {
+    private Lotto readLotto() throws IllegalArgumentException{
         String input = Console.readLine();
         List<String> splitInput = List.of(input.split(","));
         List<Integer> numbers = new ArrayList<>();

@@ -16,6 +16,7 @@ import lotto.domain.WinningNumbers;
 
 public class LottoServiceImpl implements LottoService {
 
+    @Override
     public List<Lotto> makeLottos(PurchaseAmount purchaseAmount) {
         List<Lotto> lottos = new ArrayList<>();
 
@@ -31,6 +32,7 @@ public class LottoServiceImpl implements LottoService {
         return new Lotto(Randoms.pickUniqueNumbersInRange(LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX, LOTTO_NUMBER_COUNT));
     }
 
+    @Override
     public PrizeStatistics matchAndCalculateStatistics(WinningNumbers winningNumbers, List<Lotto> lottos,
                                                        PurchaseAmount purchaseAmount) {
         Map<Prize, Integer> prizeCounter = winningNumbers.match(lottos);
